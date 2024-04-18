@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Relation Project</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('https://wallpapercave.com/wp/wp2864865.jpg');
+            background-size: cover;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: auto;
+        }
+
+        h1, h2 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #FF7F50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #FF6347;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #FF7F50;
+            color: white;
+        }
+
+        .image-container {
+            margin-top: 20px;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .uploaded-image {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        .top-results {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Deep Relation Project</h1>
+        </header>
+
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".png, .jpg, .jpeg, .bmp, .gif, .webp" required>
+            <button type="submit">Upload Image</button>
+        </form>
+
+        {% if query_image %}
+            <div class="image-container">
+                <h2>Uploaded Image:</h2>
+                <img class="uploaded-image" src="{{ query_image }}" alt="Uploaded Image">
+            </div>
+            
+            
+            {% if top_results %}
+                <div class="top-results">
+                    <h2>Top Folders with Highest Similarity:</h2>
+                    <table>
+                        <tr>
+                            <th>Folder</th>
+                            <th>Similarity</th>
+                        </tr>
+                        {% for result in top_results %}
+                            <tr>
+                                <td>{{ result[0] }}</td>
+                                <td>{{ result[1] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>
